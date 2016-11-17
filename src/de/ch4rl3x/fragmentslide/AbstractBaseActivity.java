@@ -7,6 +7,7 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.util.Pair;
@@ -80,6 +81,11 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 			}
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+		fragmentStack.get(fragmentStack.size()-1).onRequestPermissionsResult(requestCode, permissions, grantResults);
 	}
 
 	/**
