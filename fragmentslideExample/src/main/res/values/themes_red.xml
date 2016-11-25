@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">   
+
+    <style name="Theme.Red" parent="@style/Base.Theme.AppCompat.Light">
+        <item name="colorAccent">@color/red</item>
+        <item name="colorPrimary">@color/red</item>
+        <item name="colorPrimaryDark">@color/redStatusBar</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="android:theme">@style/ActionBarThemeStyle</item>
+        <item name="android:spinnerStyle">@android:style/Widget.Holo.Light.Spinner</item>
+        <item name="android:editTextStyle">@style/EditTextStyle</item>
+     	<item name="android:checkboxStyle">@style/CheckBoxStyle</item>
+        <item name="popupTheme">@style/ActionBarPopupStyle_Red</item>
+        <item name="buttonStyle">@style/Button_Red</item>
+     	<item name="android:radioButtonStyle">@style/RadioButtonStyle</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="alertDialogTheme">@style/AppTheme_Dialog_Red</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    
+</resources>

@@ -1,0 +1,38 @@
+<selector
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  	<item
+  		android:state_enabled="false">
+  		<shape>
+  			<size android:height="48dp" />
+            <solid android:color="@color/disabledButton"/>
+            <corners android:radius="0dp"/>
+        </shape>
+    </item>
+  	<item
+  		android:state_pressed="true"
+  		android:state_enabled="true">
+  		<shape>
+  			<size android:height="48dp" />
+            <solid android:color="@color/redButtonColorPressed"/>
+            <corners android:radius="0dp"/>
+        </shape>
+    </item>
+  	<item
+  		android:state_focused="true"
+  		android:state_enabled="true">
+  		<shape>
+  			<size android:height="48dp" />
+            <solid android:color="@color/redButtonColorPressed"/>
+            <corners android:radius="0dp"/>
+        </shape>
+    </item>
+  	<item
+  		android:state_enabled="true">
+  		<shape>
+  			<size android:height="48dp" />
+            <solid android:color="@color/redButtonColor"/>
+            <corners android:radius="0dp"/>
+        </shape>
+    </item>
+  
+</selector>

@@ -1,0 +1,2 @@
+include ':fragmentslideLib'
+include ':fragmentslideExample'
