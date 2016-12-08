@@ -155,21 +155,30 @@ public abstract class AbstractBaseFragment extends Fragment {
 		//Empty implementation
 	}
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {		
-		final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), mask.getTheme().getThemeID());
-		LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
-		rootView = (View) localInflater.inflate(mask.getLayout(), container, false);
-		
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-			getActiviyAbstract().getWindow().setStatusBarColor(getResources().getColor(
-					mask.getTheme().getStatusBarColorID()));
-        }
+	protected View onCreateViewCustom(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		return null;
+	}
 
-		if(getActiviyAbstract().getToolbar() != null) {
-			getActiviyAbstract().getToolbar()
-					.setBackgroundColor(getResources().getColor(
-							mask.getTheme().getPrimaryColorID()));
+	@Override
+	public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View customView = onCreateViewCustom(inflater, container, savedInstanceState);
+		if(customView == null) {
+			final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), mask.getTheme().getThemeID());
+			LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
+			rootView = (View) localInflater.inflate(mask.getLayout(), container, false);
+
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+				getActiviyAbstract().getWindow().setStatusBarColor(getResources().getColor(
+						mask.getTheme().getStatusBarColorID()));
+			}
+
+			if(getActiviyAbstract().getToolbar() != null) {
+				getActiviyAbstract().getToolbar()
+						.setBackgroundColor(getResources().getColor(
+								mask.getTheme().getPrimaryColorID()));
+			}
+		} else {
+			rootView = customView;
 		}
 
 	   	return rootView;
