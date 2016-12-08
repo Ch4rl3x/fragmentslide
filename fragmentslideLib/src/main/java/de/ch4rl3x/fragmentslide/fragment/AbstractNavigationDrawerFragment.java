@@ -39,7 +39,6 @@ public abstract class AbstractNavigationDrawerFragment extends AbstractBaseFragm
 	public ToolBarDrawerToggle mDrawerToggle;
 
 	public DrawerLayout mDrawerLayout;
-	protected View view;
 	private View mFragmentContainerView;
 
 	protected int setActionBarMenuDrawableID() {

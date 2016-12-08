@@ -44,9 +44,9 @@ public class NavigationDrawerFragment extends AbstractNavigationDrawerFragment i
 	public void onFragmentStarted(Bundle initialData) {
 		super.onFragmentStarted(initialData);
 				
-		view.findViewById(R.id.menu_blue).setOnClickListener(this);
-		view.findViewById(R.id.menu_green).setOnClickListener(this);
-		view.findViewById(R.id.menu_red).setOnClickListener(this);
+		findViewById(R.id.menu_blue).setOnClickListener(this);
+		findViewById(R.id.menu_green).setOnClickListener(this);
+		findViewById(R.id.menu_red).setOnClickListener(this);
 	}
 	
 	@Override
