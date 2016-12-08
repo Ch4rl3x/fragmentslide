@@ -65,12 +65,10 @@ public abstract class AbstractNavigationDrawerFragment extends AbstractBaseFragm
 	protected abstract int setNavigationDrawerLayout();
 	protected abstract int setAppNameStringID();
 	protected abstract ITheme setInitialTheme();
-		
+
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		view = inflater.inflate(setNavigationDrawerLayout(), container, false);
-		return view;
+	protected View onCreateViewCustom(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		return inflater.inflate(setNavigationDrawerLayout(), container, false);
 	}
 
 	public boolean isDrawerOpen() {
