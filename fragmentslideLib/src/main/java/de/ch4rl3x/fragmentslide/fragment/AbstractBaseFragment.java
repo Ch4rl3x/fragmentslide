@@ -342,17 +342,19 @@ public abstract class AbstractBaseFragment extends Fragment {
 			public void onDismissed(Snackbar snackbar, int event) {
 				super.onDismissed(snackbar, event);
 
-				getActiviyAbstract().runOnUiThread(new Runnable() {
+				if(getActiviyAbstract() != null) {
+					getActiviyAbstract().runOnUiThread(new Runnable() {
 
-					@Override
-					public void run() {
-						if (!fragmentIsClosing && fab != null) {
-							fab.setVisibility(View.VISIBLE);
+						@Override
+						public void run() {
+							if (!fragmentIsClosing && fab != null) {
+								fab.setVisibility(View.VISIBLE);
+							}
+
+							runnable.run();
 						}
-
-						runnable.run();
-					}
-				});
+					});
+				}
 			}
 		});
 	}

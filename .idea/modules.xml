@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/fragmentslide.iml" filepath="$PROJECT_DIR$/fragmentslide.iml" />
       <module fileurl="file://$PROJECT_DIR$/fragmentslideExample/fragmentslideExample.iml" filepath="$PROJECT_DIR$/fragmentslideExample/fragmentslideExample.iml" />
       <module fileurl="file://$PROJECT_DIR$/fragmentslideLib/fragmentslideLib.iml" filepath="$PROJECT_DIR$/fragmentslideLib/fragmentslideLib.iml" />
