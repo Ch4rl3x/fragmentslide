@@ -570,6 +570,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 			}
 
 		} else {
+			fragmentStack.get(0).perpareClosing();
 			finish();
 		}
 	}

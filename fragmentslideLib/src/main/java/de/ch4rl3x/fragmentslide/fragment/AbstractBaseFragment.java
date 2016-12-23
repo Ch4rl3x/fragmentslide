@@ -41,7 +41,8 @@ public abstract class AbstractBaseFragment extends Fragment {
 	private Pair<IMask, Bundle> resultBundlePair;
 
 	private boolean fragmentIsClosing = false;
-	
+	private Snackbar snackbar;
+
 	public void setInitialBundle(Bundle bundle) {
 		this.initialBundle = bundle;
 	}
@@ -106,6 +107,15 @@ public abstract class AbstractBaseFragment extends Fragment {
 	public void onStop() {
 		started = false;
 	    super.onStop();
+	}
+
+	/**
+	 * This Method will be called instantly before acivity.finish().
+	 */
+	public void perpareClosing() {
+		if(snackbar != null) {
+			snackbar.dismiss();
+		}
 	}
 	
 	/*
@@ -329,7 +339,7 @@ public abstract class AbstractBaseFragment extends Fragment {
 
 		onRevertClickListener.setRunnable(runnable);
 
-		Snackbar snackbar = Snackbar
+		snackbar = Snackbar
 				.make(rootView, message, Snackbar.LENGTH_LONG)
 				.setAction(getRevertButtonText(), onRevertClickListener);
 		View view = snackbar.getView();
@@ -347,7 +357,7 @@ public abstract class AbstractBaseFragment extends Fragment {
 
 						@Override
 						public void run() {
-							if (!fragmentIsClosing && fab != null) {
+							if (!fragmentIsClosing && fab != null && isStarted()) {
 								fab.setVisibility(View.VISIBLE);
 							}
 
