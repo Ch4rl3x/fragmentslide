@@ -139,7 +139,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 					setSlideLeftOutAnimID(), setSlideLeftInAnimID(),
 					setSlideLeftOutAnimID());
 			fragmentTransaction.remove(fragmentToMove);
-			fragmentTransaction.commitNow();
+			fragmentTransaction.commit();
 			fragmentManager.executePendingTransactions();
 
 			fragmentTransaction = fragmentManager.beginTransaction();
@@ -150,7 +150,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 					fragmentContainer[highestContainer - 1], newInstance,
 					newInstance.getName());
 			fragmentTransaction.addToBackStack(null);
-			fragmentTransaction.commitNow();
+			fragmentTransaction.commit();
 			fragmentManager.executePendingTransactions();
 			
 
@@ -186,7 +186,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 						setSlideRightInAnimID(), setSlideRightOutAnimID(),
 						setSlideLeftInAnimID(), setSlideLeftOutAnimID());
 				fragmentTransaction.remove(toMove);
-				fragmentTransaction.commitNow();
+				fragmentTransaction.commit();
 				fragmentManager.executePendingTransactions();
 
 				fragmentTransaction = fragmentManager.beginTransaction();
@@ -196,7 +196,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 				fragmentTransaction.replace(fragmentContainer[targetContainer],
 						newInstance, newInstance.getName());
 				fragmentTransaction.addToBackStack(null);
-				fragmentTransaction.commitNow();
+				fragmentTransaction.commit();
 				fragmentManager.executePendingTransactions();
 
 				fragmentToMove--;
@@ -232,7 +232,6 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 	public void startMask(IMask maske, Bundle bundle) {
 		startMask(maske, bundle, false);
 	}
-			
 
 	/**
 	 * Start a new mask (fragment)
@@ -242,7 +241,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 	 * @param withoutAnimation
 	 */
 	public void startMask(IMask mask, Bundle bundle, boolean withoutAnimation) {
-		
+
 		if (separator == null) {
 			separator = setSeparartor();
 		}
@@ -253,8 +252,8 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 			//We returned to the app and now we have to recreate the mask struktur
 			startMask(mask.getParentView());
 		}
-		
-		
+
+
 
 		boolean closeEbeneZero = ebene == 0;
 		boolean withReplaceLast = (fragmentStack.size() - 1) == ebene;
@@ -316,7 +315,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 							fragmentContainer[fragmentContainer.length - 1], fragment,
 							fragment.getName());
 					fragmentTransaction.addToBackStack(null);
-					fragmentTransaction.commitNow();
+					fragmentTransaction.commit();
 					fragmentManager.executePendingTransactions();
 
 				} else {
@@ -338,7 +337,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 					fragmentTransaction.replace(fragmentContainer[ebene], fragment,
 							fragment.getName());
 					fragmentTransaction.addToBackStack(null);
-					fragmentTransaction.commitNow();
+					fragmentTransaction.commit();
 					fragmentManager.executePendingTransactions();
 				}
 
@@ -555,7 +554,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 			}
 			
 			fragmentTransaction.remove(toDelete);
-			fragmentTransaction.commitNow();
+			fragmentTransaction.commit();
 			fragmentManager.executePendingTransactions();
 
 			if (fragmentStack.size() > fragmentContainer.length && !withNext) {
