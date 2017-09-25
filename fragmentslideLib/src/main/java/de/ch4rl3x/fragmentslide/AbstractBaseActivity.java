@@ -139,7 +139,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 					setSlideLeftOutAnimID(), setSlideLeftInAnimID(),
 					setSlideLeftOutAnimID());
 			fragmentTransaction.remove(fragmentToMove);
-			fragmentTransaction.commit();
+			fragmentTransaction.commitNow();
 			fragmentManager.executePendingTransactions();
 
 			fragmentTransaction = fragmentManager.beginTransaction();
@@ -150,7 +150,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 					fragmentContainer[highestContainer - 1], newInstance,
 					newInstance.getName());
 			fragmentTransaction.addToBackStack(null);
-			fragmentTransaction.commit();
+			fragmentTransaction.commitNow();
 			fragmentManager.executePendingTransactions();
 			
 
@@ -186,7 +186,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 						setSlideRightInAnimID(), setSlideRightOutAnimID(),
 						setSlideLeftInAnimID(), setSlideLeftOutAnimID());
 				fragmentTransaction.remove(toMove);
-				fragmentTransaction.commit();
+				fragmentTransaction.commitNow();
 				fragmentManager.executePendingTransactions();
 
 				fragmentTransaction = fragmentManager.beginTransaction();
@@ -196,7 +196,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 				fragmentTransaction.replace(fragmentContainer[targetContainer],
 						newInstance, newInstance.getName());
 				fragmentTransaction.addToBackStack(null);
-				fragmentTransaction.commit();
+				fragmentTransaction.commitNow();
 				fragmentManager.executePendingTransactions();
 
 				fragmentToMove--;
@@ -248,7 +248,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 		}
 
 		int ebene = mask.getEbene();
-		
+
 		if(fragmentStack.size() == 0 && ebene > 0) {
 			//We returned to the app and now we have to recreate the mask struktur
 			startMask(mask.getParentView());
@@ -316,7 +316,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 							fragmentContainer[fragmentContainer.length - 1], fragment,
 							fragment.getName());
 					fragmentTransaction.addToBackStack(null);
-					fragmentTransaction.commit();
+					fragmentTransaction.commitNow();
 					fragmentManager.executePendingTransactions();
 
 				} else {
@@ -338,7 +338,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 					fragmentTransaction.replace(fragmentContainer[ebene], fragment,
 							fragment.getName());
 					fragmentTransaction.addToBackStack(null);
-					fragmentTransaction.commit();
+					fragmentTransaction.commitNow();
 					fragmentManager.executePendingTransactions();
 				}
 
@@ -530,7 +530,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 	 */
 	private void closeHighestFragment(boolean withNext, boolean closeEbeneZero, boolean withoutAnimation) {
 		currentMask = currentMask.getParentView();
-		
+
 
 		if (fragmentStack.size() > 1
 				|| (fragmentStack.size() >= 1 && closeEbeneZero)) {
@@ -555,7 +555,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 			}
 			
 			fragmentTransaction.remove(toDelete);
-			fragmentTransaction.commit();
+			fragmentTransaction.commitNow();
 			fragmentManager.executePendingTransactions();
 
 			if (fragmentStack.size() > fragmentContainer.length && !withNext) {
