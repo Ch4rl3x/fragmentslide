@@ -398,7 +398,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 		mNavigationDrawerFragment.unLockDrawer();
 	}
 
-	private void setBackIcon(boolean backButton) {
+	public void setBackIcon(boolean backButton) {
 		mNavigationDrawerFragment.mDrawerToggle.animate(mNavigationDrawerFragment.mDrawerLayout, backButton);
 	}
 
