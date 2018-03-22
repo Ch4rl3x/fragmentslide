@@ -1,8 +1,5 @@
 package de.ch4rl3x.fragmentslide;
 
-import java.util.ArrayList;
-
-import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -16,12 +13,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+
+import java.util.ArrayList;
+
 import de.ch4rl3x.fragmentslide.fragment.AbstractBaseFragment;
 import de.ch4rl3x.fragmentslide.fragment.AbstractNavigationDrawerFragment;
 import de.ch4rl3x.fragmentslide.interfaces.IMask;
 import de.ch4rl3x.fragmentslide.interfaces.OnStackSizeChangeListener;
 import de.ch4rl3x.fragmentslide.utilities.NotifyableStack;
-import de.ch4rl3x.fragmentslide.R;
 
 /**
  * The Basic Activity
@@ -502,19 +501,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 	 * Closes the highest mask
 	 */
 	public void closeHighestFragment() {
-		closeHighestFragment(false, false);
-	}
-	
-	/**
-	 * Closes the highest mask
-	 * 
-	 * @param withNext
-	 *            true, if the fragments shouldn't move, because of the creation of a new fragment
-	 * @param closeEbeneZero
-	 *            true, if a mask from level 0 is started
-	 */
-	private void closeHighestFragment(boolean withNext, boolean closeEbeneZero) {
-		closeHighestFragment(withNext, closeEbeneZero, false);
+		closeHighestFragment(false, false, false);
 	}
 
 	/**
@@ -554,7 +541,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 			}
 			
 			fragmentTransaction.remove(toDelete);
-			fragmentTransaction.commit();
+			fragmentTransaction.commitAllowingStateLoss();
 			fragmentManager.executePendingTransactions();
 
 			if (fragmentStack.size() > fragmentContainer.length && !withNext) {
