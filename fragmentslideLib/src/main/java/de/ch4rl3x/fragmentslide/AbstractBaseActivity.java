@@ -336,7 +336,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 					fragmentTransaction.replace(fragmentContainer[ebene], fragment,
 							fragment.getName());
 					fragmentTransaction.addToBackStack(null);
-					fragmentTransaction.commit();
+					fragmentTransaction.commitAllowingStateLoss();
 					fragmentManager.executePendingTransactions();
 				}
 
