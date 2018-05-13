@@ -402,8 +402,9 @@ public abstract class AbstractBaseFragment extends Fragment {
 		getActiviyAbstract().setGreyToolbarMode(greyToolbarMode);
 	}
 	
-	public void onHomeClicked() {
+	public boolean onHomeClicked() {
 		//Empty implementation
+		return false;
 	}
 	
 	public void setResult(IMask target, Bundle resultBundle) {

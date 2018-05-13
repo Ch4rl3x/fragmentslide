@@ -11,6 +11,7 @@ import android.support.v4.util.Pair;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -40,6 +41,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 	private int[] separator;
 	private boolean greyToolbarMode = false;
 	private NotifyableStack<AbstractBaseFragment> fragmentStack = new NotifyableStack<AbstractBaseFragment>();
+
 	private Pair<IMask, Bundle> resultBundlePair;
 
 	public AbstractNavigationDrawerFragment getNavigationDrawerFragment() {
@@ -50,7 +52,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 	public void onBackPressed() {
 		boolean handled = fragmentStack.get(fragmentStack.size()-1).onBackPressed();
 		if(!handled && currentMask != null) {
-			closeHighestFragment();
+            closeHighestFragment();
 		}
 	}
 
@@ -63,9 +65,10 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 		switch (item.getItemId()) {
 		// Respond to the action bar's Up/Home button
 		case android.R.id.home:
-			
 			if (fragmentStack.size() > fragmentContainer.length && !greyToolbarMode) {
-				closeHighestFragment();
+				if(!fragmentStack.lastElement().onHomeClicked()) {
+					closeHighestFragment();
+				}
 
 				return true;
 			} else if(greyToolbarMode) {
@@ -96,7 +99,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 	private AbstractBaseFragment recreateFragment(AbstractBaseFragment fragment) {
 		try {
 			AbstractBaseFragment.SavedState savedState = getSupportFragmentManager()
-					.saveFragmentInstanceState(fragment);
+						.saveFragmentInstanceState(fragment);
 			AbstractBaseFragment newInstance = fragment.getClass()
 					.newInstance();
 			newInstance.setMaske(fragment.getMaske());
@@ -115,7 +118,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 	 * Moves all fragments to the left. One will disapear on the left side
 	 * and on the right side there will be a free space for the new fragment
 	 */
-	private void moveAllFragementsToTheLeft() {
+	private void moveAllFragementsToTheLeft(FragmentTransaction fragmentTransaction) {
 		int highestFragment = fragmentStack.size() - 2;
 		int highestContainer = fragmentContainer.length - 1;
 
@@ -124,10 +127,6 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 		}
 
 		while (highestContainer > 0) {
-			FragmentManager fragmentManager = getSupportFragmentManager();
-			FragmentTransaction fragmentTransaction = fragmentManager
-					.beginTransaction();
-
 			AbstractBaseFragment fragmentToMove = fragmentStack
 					.get(highestFragment);
 			fragmentStack.remove(highestFragment);
@@ -138,20 +137,11 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 					setSlideLeftOutAnimID(), setSlideLeftInAnimID(),
 					setSlideLeftOutAnimID());
 			fragmentTransaction.remove(fragmentToMove);
-			fragmentTransaction.commit();
-			fragmentManager.executePendingTransactions();
 
-			fragmentTransaction = fragmentManager.beginTransaction();
-			fragmentTransaction.setCustomAnimations(setSlideLeftInAnimID(),
-					setSlideLeftOutAnimID());
-			newInstance.setContainerPosition(highestContainer - 1);
+			fragmentToMove.setContainerPosition(highestContainer - 1);
 			fragmentTransaction.replace(
 					fragmentContainer[highestContainer - 1], newInstance,
 					newInstance.getName());
-			fragmentTransaction.addToBackStack(null);
-			fragmentTransaction.commit();
-			fragmentManager.executePendingTransactions();
-			
 
 			highestFragment--;
 			highestContainer--;
@@ -161,7 +151,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 	/**
 	 * Moves all fragments to the right e.g. if one fragment is closed
 	 */
-	private void moveAllFragementsToTheRight() {
+	private void moveAllFragementsToTheRight(FragmentTransaction fragmentTransaction) {
 		int fragmentToMove = fragmentStack.size() - 2;
 		int targetContainer = fragmentContainer.length - 1;
 
@@ -171,10 +161,9 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 
 		if (fragmentStack.size() > fragmentContainer.length) {
 
+
+
 			while (fragmentToMove >= 0 && targetContainer >= 0) {
-				FragmentManager fragmentManager = getSupportFragmentManager();
-				FragmentTransaction fragmentTransaction = fragmentManager
-						.beginTransaction();
 
 				AbstractBaseFragment toMove = fragmentStack.get(fragmentToMove);
 				fragmentStack.remove(toMove);
@@ -185,22 +174,15 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 						setSlideRightInAnimID(), setSlideRightOutAnimID(),
 						setSlideLeftInAnimID(), setSlideLeftOutAnimID());
 				fragmentTransaction.remove(toMove);
-				fragmentTransaction.commit();
-				fragmentManager.executePendingTransactions();
 
-				fragmentTransaction = fragmentManager.beginTransaction();
-				fragmentTransaction.setCustomAnimations(
-						setSlideRightInAnimID(), setSlideRightOutAnimID());
 				newInstance.setContainerPosition(targetContainer);
 				fragmentTransaction.replace(fragmentContainer[targetContainer],
 						newInstance, newInstance.getName());
-				fragmentTransaction.addToBackStack(null);
-				fragmentTransaction.commit();
-				fragmentManager.executePendingTransactions();
 
 				fragmentToMove--;
 				targetContainer--;
 			}
+
 		}
 	}
 
@@ -294,6 +276,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 				fragment.setMaske(mask);
 				fragment.setInitialBundle(bundle);
 				fragmentStack.push(fragment);
+
 				FragmentManager fragmentManager = getSupportFragmentManager();
 				FragmentTransaction fragmentTransaction = fragmentManager
 						.beginTransaction();
@@ -301,21 +284,20 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 				if (ebene > fragmentContainer.length - 1 && ebene != 0) {
 
 					if (!withReplaceLast) {
-						moveAllFragementsToTheLeft();
+						moveAllFragementsToTheLeft(fragmentTransaction);
 						fragmentTransaction.setCustomAnimations(setSlideLeftInAnimID(),
-								setSlideLeftOutAnimID());
+								setSlideLeftOutAnimID(), setSlideRightInAnimID(),
+								setSlideRightOutAnimID());
 					} else {
 						fragmentTransaction.setCustomAnimations(
-								setSlideRightInAnimID(), setSlideRightOutAnimID());
+								setSlideRightInAnimID(), setSlideRightOutAnimID(), setSlideLeftInAnimID(), setSlideLeftOutAnimID());
 					}
 
 					fragment.setContainerPosition(fragmentContainer.length - 1);
+
 					fragmentTransaction.replace(
 							fragmentContainer[fragmentContainer.length - 1], fragment,
 							fragment.getName());
-					fragmentTransaction.addToBackStack(null);
-					fragmentTransaction.commit();
-					fragmentManager.executePendingTransactions();
 
 				} else {
 
@@ -328,17 +310,19 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 					if(!withoutAnimation) {
 						fragmentTransaction.setCustomAnimations(
 								setSlideRightInDoubleAnimID(),
-								setSlideRightOutDoubleAnimID());
+								setSlideRightOutDoubleAnimID(), setSlideLeftInAnimID(), setSlideLeftOutAnimID());
 					}
 
 
 					fragment.setContainerPosition(ebene);
 					fragmentTransaction.replace(fragmentContainer[ebene], fragment,
 							fragment.getName());
-					fragmentTransaction.addToBackStack(null);
-					fragmentTransaction.commit();
-					fragmentManager.executePendingTransactions();
+
 				}
+
+				fragmentTransaction.addToBackStack(mask.getName());
+				fragmentTransaction.commit();
+//				fragmentManager.executePendingTransactions();
 
 				currentMask = mask;
 
@@ -370,6 +354,20 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 		if (toolbar != null) {
 			setSupportActionBar(toolbar);
 		}
+
+		getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+			@Override
+			public void onBackStackChanged() {
+				Log.d("Test", "Backstack changed!");
+
+				if(getSupportFragmentManager().getBackStackEntryCount() > 0) {
+					for (int i = 0; i < getSupportFragmentManager().getBackStackEntryCount(); i++) {
+
+						Log.d("Test", getSupportFragmentManager().getBackStackEntryAt(i).toString());
+					}
+				}
+			}
+		});
 
         mNavigationDrawerFragment = (AbstractNavigationDrawerFragment) getSupportFragmentManager().findFragmentById(setNavigationDrawerID());
 		mNavigationDrawerFragment.setUp(setNavigationDrawerID(),(DrawerLayout) findViewById(setDrawerLayoutID()));
@@ -525,28 +523,13 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 			resultBundlePair = toDelete.getResultBundle();
 
 			FragmentManager fragmentManager = getSupportFragmentManager();
-			FragmentTransaction fragmentTransaction = fragmentManager
-					.beginTransaction();
-
-			if(!withoutAnimation) {
-				if (fragmentStack.size() > fragmentContainer.length && !withNext) {
-					fragmentTransaction.setCustomAnimations(
-							setSlideRightInAnimID(), setSlideRightOutAnimID(),
-							setSlideRightInAnimID(), setSlideRightOutAnimID());
-				} else {
-					fragmentTransaction.setCustomAnimations(setSlideLeftInAnimID(),
-							setSlideLeftOutAnimID(), setSlideLeftInAnimID(),
-							setSlideLeftOutAnimID());
-				}
-			}
-			
-			fragmentTransaction.remove(toDelete);
-			fragmentTransaction.commitAllowingStateLoss();
-			fragmentManager.executePendingTransactions();
-
+			FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 			if (fragmentStack.size() > fragmentContainer.length && !withNext) {
-				moveAllFragementsToTheRight();
+				moveAllFragementsToTheRight(fragmentTransaction);
 			}
+
+			fragmentTransaction.commit();
+
 
 			fragmentStack.pop();
 
@@ -554,6 +537,35 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 				clearUnusedMaskenSeperator(currentMask.getEbene());
 				refreshActionBar();
 			}
+
+//			super.onBackPressed();
+
+
+
+			fragmentManager.popBackStack();
+//			FragmentTransaction fragmentTransaction = fragmentManager
+//					.beginTransaction();
+//
+//			if(!withoutAnimation) {
+//				if (fragmentStack.size() > fragmentContainer.length && !withNext) {
+//					fragmentTransaction.setCustomAnimations(
+//							setSlideRightInAnimID(), setSlideRightOutAnimID(),
+//							setSlideRightInAnimID(), setSlideRightOutAnimID());
+//				} else {
+//					fragmentTransaction.setCustomAnimations(setSlideLeftInAnimID(),
+//							setSlideLeftOutAnimID(), setSlideLeftInAnimID(),
+//							setSlideLeftOutAnimID());
+//				}
+//			}
+//
+//			fragmentTransaction.remove(toDelete);
+//			fragmentTransaction.commitAllowingStateLoss();
+//			fragmentManager.executePendingTransactions();
+
+
+
+
+
 
 		} else {
 			fragmentStack.get(0).perpareClosing();
@@ -607,8 +619,16 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 		return R.anim.slide_left_in;
 	}
 
+	protected int setSlideLeftInDoubleAnimID() {
+		return R.anim.slide_left_in_double;
+	}
+
 	protected int setSlideLeftOutAnimID() {
 		return R.anim.slide_left_out;
+	}
+
+	protected int setSlideLeftOutDoubleAnimID() {
+		return R.anim.slide_left_out_double;
 	}
 
 	protected int setSlideRightInAnimID() {
