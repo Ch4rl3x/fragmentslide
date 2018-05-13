@@ -65,7 +65,9 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 		case android.R.id.home:
 			
 			if (fragmentStack.size() > fragmentContainer.length && !greyToolbarMode) {
-				closeHighestFragment();
+				if(!fragmentStack.lastElement().onHomeClicked()) {
+					closeHighestFragment();
+				}
 
 				return true;
 			} else if(greyToolbarMode) {
