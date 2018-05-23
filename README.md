@@ -1,7 +1,7 @@
 Usage
 -----
 
-In order to use the library, there are 4 different options:
+In order to use the library, there are 2 different options:
 
 **1. Gradle dependency** (recommended)
 
