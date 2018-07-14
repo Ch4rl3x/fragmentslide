@@ -338,7 +338,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 					fragmentTransaction.replace(fragmentContainer[ebene], fragment,
 							fragment.getName());
 					fragmentTransaction.addToBackStack(null);
-					fragmentTransaction.commitAllowingStateLoss();
+					fragmentTransaction.commit();
 					fragmentManager.executePendingTransactions();
 				}
 
@@ -517,8 +517,8 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements 
 	 * 			  true, if there should be no animation
 	 */
 	private void closeHighestFragment(boolean withNext, boolean closeEbeneZero, boolean withoutAnimation) {
-		currentMask = currentMask.getParentView();
 
+		currentMask = currentMask != null ? currentMask.getParentView() : null;
 
 		if (fragmentStack.size() > 1
 				|| (fragmentStack.size() >= 1 && closeEbeneZero)) {
