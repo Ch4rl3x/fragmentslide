@@ -317,10 +317,21 @@ public abstract class AbstractBaseFragment extends Fragment {
 		}).start();
 	}
 
+	public void enableFabButton(View.OnClickListener clickListener) {
+		int currentContainer = this.getContainerPosition();
+		int[] fabButtton = this.getFabButtons();
+		if (currentContainer < fabButtton.length && this.fab == null) {
+			this.fab = (FloatingActionButton)this.getActiviyAbstract().findViewById(fabButtton[currentContainer]);
+			this.fab.setBackgroundTintList(ColorStateList.valueOf(this.getResources().getColor(this.getMaske().getTheme().getPrimaryColorID())));
+			this.fab.setOnClickListener(clickListener);
+		}
+
+	}
+
 	public void enableFabButton(int buttonDrawable, View.OnClickListener clickListener) {
 		int currentContainer = getContainerPosition();
 		int[] fabButtton = getFabButtons();
-		if(currentContainer < fabButtton.length) {
+		if(currentContainer < fabButtton.length && this.fab == null) {
 			fab = (FloatingActionButton)getActiviyAbstract().findViewById(fabButtton[currentContainer]);
 			fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(getMaske().getTheme().getPrimaryColorID())));
 			fab.setImageDrawable(getResources().getDrawable(buttonDrawable));
