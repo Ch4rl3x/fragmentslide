@@ -3,12 +3,12 @@ package de.ch4rl3x.fragmentslide.utilities;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
+
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import de.ch4rl3x.fragmentslide.interfaces.ITheme;

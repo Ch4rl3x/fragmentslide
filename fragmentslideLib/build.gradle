@@ -1,19 +1,19 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.2"
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
-        versionName "1.0.18"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        versionName "1.0.19"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 }
 
 dependencies {
-    compile 'com.android.support:design:27.0.2'
-    compile 'com.android.support:appcompat-v7:27.0.2'
+    implementation 'com.google.android.material:material:1.1.0-alpha02'
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha01'
 }

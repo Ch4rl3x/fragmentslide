@@ -5,10 +5,6 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.util.Pair;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +14,11 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+
+import androidx.core.util.Pair;
+import androidx.fragment.app.Fragment;
 import de.ch4rl3x.fragmentslide.AbstractBaseActivity;
 import de.ch4rl3x.fragmentslide.R;
 import de.ch4rl3x.fragmentslide.interfaces.IMask;
@@ -349,7 +350,7 @@ public abstract class AbstractBaseFragment extends Fragment {
 				.make(rootView, message, Snackbar.LENGTH_LONG)
 				.setAction(getRevertButtonText(), onRevertClickListener);
 		View view = snackbar.getView();
-		TextView tv = (TextView) view.findViewById(android.support.design.R.id.snackbar_text);
+		TextView tv = (TextView) view.findViewById(com.google.android.material.R.id.snackbar_text);
 		tv.setTextColor(Color.WHITE);
 		snackbar.show();
 
