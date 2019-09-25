@@ -11,18 +11,9 @@ android {
         versionName "1.0.19"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
-    productFlavors {
-        flavorDimensions "default"
-        stage {
-            // to do
-        }
-        prod {
-            // to do
-
-        }
-    }
 }
+
+group = 'de.ch4rl3x.fragmentslide'
 
 dependencies {
     implementation 'com.google.android.material:material:1.1.0-alpha10'
