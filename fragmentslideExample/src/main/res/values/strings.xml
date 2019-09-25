@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">FragementSlide Example</string>
-    <string name="blueSubMask">Blue sub mask</string>
-    <string name="blueSubMaskWithRedTheme">Blue sub mask with red theme</string>
-    <string name="greenMask">Green mask</string>
-    <string name="redMask">Red mask</string>
-</resources>
