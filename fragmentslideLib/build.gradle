@@ -11,6 +11,17 @@ android {
         versionName "1.0.19"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    productFlavors {
+        flavorDimensions "default"
+        stage {
+            // to do
+        }
+        prod {
+            // to do
+
+        }
+    }
 }
 
 dependencies {
