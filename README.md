@@ -1,3 +1,6 @@
+fragmentslide
+Master: ![Android CI](https://github.com/Ch4rl3x/fragmentslide/workflows/Android%20CI/badge.svg?branch=master)
+
 Usage
 -----
 
