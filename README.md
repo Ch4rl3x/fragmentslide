@@ -1,5 +1,10 @@
-fragmentslide
+<table align="center"><tr><td align="center" width="9999">
+
+# fragmentslide
+
 Master: ![Android CI](https://github.com/Ch4rl3x/fragmentslide/workflows/Android%20CI/badge.svg?branch=master)
+</td></tr></table>
+
 
 Usage
 -----
