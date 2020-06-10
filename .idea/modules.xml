@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Workspace-fragmentslide.iml" filepath="$PROJECT_DIR$/Workspace-fragmentslide.iml" group="fragmentslide" />
       <module fileurl="file://$PROJECT_DIR$/fragmentslide.iml" filepath="$PROJECT_DIR$/fragmentslide.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fragmentslideLib/fragmentslide-fragmentslideLib.iml" filepath="$PROJECT_DIR$/fragmentslideLib/fragmentslide-fragmentslideLib.iml" group="fragmentslide/fragmentslideLib" />
       <module fileurl="file://$PROJECT_DIR$/fragmentslideLib/fragmentslideLib.iml" filepath="$PROJECT_DIR$/fragmentslideLib/fragmentslideLib.iml" />
     </modules>
   </component>
