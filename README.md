@@ -3,11 +3,9 @@
 # fragmentslide
 
 Master: ![Android CI](https://github.com/Ch4rl3x/fragmentslide/workflows/Android%20CI/badge.svg?branch=master)
+[![CircleCI](https://circleci.com/gh/Ch4rl3x/fragmentslide.svg?style=shield )](https://circleci.com/gh/Ch4rl3x/fragmentslide)
+
 </td></tr></table>
-
-
-[![CircleCI](https://circleci.com/github/Ch4rl3x/fragmentslide.svg?style=svg)](https://circleci.com/github/Ch4rl3x/fragmentslide)
-
 
 Usage
 -----
